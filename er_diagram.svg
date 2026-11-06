@@ -1,0 +1,157 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 720" font-family="Helvetica, Arial, sans-serif" font-size="12">
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6" fill="none" stroke="#555" stroke-width="1"/>
+    </marker>
+  </defs>
+
+  <style>
+    .entity { fill: #f0f4ff; stroke: #4a6fa5; stroke-width: 1.5; rx: 6; }
+    .header { fill: #4a6fa5; }
+    .header-text { fill: white; font-weight: bold; font-size: 13px; }
+    .pk { font-weight: bold; }
+    .fk { fill: #666; }
+    .rel-line { stroke: #555; stroke-width: 1.2; fill: none; }
+    .rel-label { font-size: 10px; fill: #888; }
+    .title { font-size: 20px; font-weight: bold; fill: #333; }
+    .subtitle { font-size: 12px; fill: #888; }
+  </style>
+
+  <!-- Title -->
+  <text x="550" y="30" text-anchor="middle" class="title">Blurb — Entity-Relationship Diagram</text>
+  <text x="550" y="48" text-anchor="middle" class="subtitle">CIS 5500 · Goodreads Comics &amp; Graphic Novels</text>
+
+  <!-- ==================== BOOKS ==================== -->
+  <rect x="400" y="70" width="200" height="160" class="entity"/>
+  <rect x="400" y="70" width="200" height="24" class="header" rx="6"/>
+  <rect x="400" y="82" width="200" height="12" class="header"/>
+  <text x="500" y="87" text-anchor="middle" class="header-text">books</text>
+  <text x="410" y="110" class="pk">book_id  BIGINT  PK</text>
+  <text x="410" y="126">title  TEXT  NOT NULL</text>
+  <text x="410" y="142">publisher  TEXT</text>
+  <text x="410" y="158">publication_year  INT</text>
+  <text x="410" y="174">format  TEXT</text>
+  <text x="410" y="190">num_pages  INT</text>
+  <text x="410" y="206">average_rating  NUMERIC(3,2)</text>
+  <text x="410" y="222">ratings_count  INT</text>
+
+  <!-- ==================== AUTHORS ==================== -->
+  <rect x="30" y="70" width="190" height="110" class="entity"/>
+  <rect x="30" y="70" width="190" height="24" class="header" rx="6"/>
+  <rect x="30" y="82" width="190" height="12" class="header"/>
+  <text x="125" y="87" text-anchor="middle" class="header-text">authors</text>
+  <text x="40" y="110" class="pk">author_id  BIGINT  PK</text>
+  <text x="40" y="126">name  TEXT  NOT NULL</text>
+  <text x="40" y="142">average_rating  NUMERIC(3,2)</text>
+  <text x="40" y="158">ratings_count  INT</text>
+
+  <!-- ==================== BOOK_AUTHORS (junction) ==================== -->
+  <rect x="220" y="200" width="170" height="70" class="entity"/>
+  <rect x="220" y="200" width="170" height="24" class="header" rx="6"/>
+  <rect x="220" y="212" width="170" height="12" class="header"/>
+  <text x="305" y="217" text-anchor="middle" class="header-text">book_authors</text>
+  <text x="230" y="240" class="pk fk">book_id  BIGINT  PK FK</text>
+  <text x="230" y="256" class="pk fk">author_id  BIGINT  PK FK</text>
+
+  <!-- authors — book_authors -->
+  <path d="M 125,180 L 125,232 L 220,232" class="rel-line" marker-end="url(#arrow)"/>
+  <text x="135" y="218" class="rel-label">1 : N</text>
+
+  <!-- book_authors — books -->
+  <path d="M 390,240 L 400,240" class="rel-line" marker-end="url(#arrow)"/>
+  <text x="392" y="236" class="rel-label">N : 1</text>
+
+  <!-- ==================== GENRES ==================== -->
+  <rect x="720" y="70" width="180" height="80" class="entity"/>
+  <rect x="720" y="70" width="180" height="24" class="header" rx="6"/>
+  <rect x="720" y="82" width="180" height="12" class="header"/>
+  <text x="810" y="87" text-anchor="middle" class="header-text">genres</text>
+  <text x="730" y="110" class="pk">genre_id  INT  PK (identity)</text>
+  <text x="730" y="126">name  TEXT  UNIQUE NOT NULL</text>
+
+  <!-- ==================== BOOK_GENRES (junction) ==================== -->
+  <rect x="660" y="190" width="180" height="80" class="entity"/>
+  <rect x="660" y="190" width="180" height="24" class="header" rx="6"/>
+  <rect x="660" y="202" width="180" height="12" class="header"/>
+  <text x="750" y="207" text-anchor="middle" class="header-text">book_genres</text>
+  <text x="670" y="230" class="pk fk">book_id  BIGINT  PK FK</text>
+  <text x="670" y="246" class="pk fk">genre_id  INT  PK FK</text>
+  <text x="670" y="262">tag_count  INT</text>
+
+  <!-- genres — book_genres -->
+  <path d="M 810,150 L 810,170 L 750,170 L 750,190" class="rel-line" marker-end="url(#arrow)"/>
+  <text x="815" y="168" class="rel-label">1 : N</text>
+
+  <!-- book_genres — books -->
+  <path d="M 660,230 L 600,230 L 600,180" class="rel-line" marker-end="url(#arrow)"/>
+  <text x="610" y="218" class="rel-label">N : 1</text>
+
+  <!-- ==================== USERS ==================== -->
+  <rect x="100" y="380" width="180" height="60" class="entity"/>
+  <rect x="100" y="380" width="180" height="24" class="header" rx="6"/>
+  <rect x="100" y="392" width="180" height="12" class="header"/>
+  <text x="190" y="397" text-anchor="middle" class="header-text">users</text>
+  <text x="110" y="420" class="pk">user_id  TEXT  PK</text>
+
+  <!-- ==================== INTERACTIONS ==================== -->
+  <rect x="350" y="340" width="200" height="100" class="entity"/>
+  <rect x="350" y="340" width="200" height="24" class="header" rx="6"/>
+  <rect x="350" y="352" width="200" height="12" class="header"/>
+  <text x="450" y="357" text-anchor="middle" class="header-text">interactions</text>
+  <text x="360" y="380" class="pk fk">user_id  TEXT  PK FK</text>
+  <text x="360" y="396" class="pk fk">book_id  BIGINT  PK FK</text>
+  <text x="360" y="412">is_read  BOOLEAN</text>
+  <text x="360" y="428">rating  SMALLINT  CHECK(0–5)</text>
+
+  <!-- users — interactions -->
+  <path d="M 280,410 L 350,410" class="rel-line" marker-end="url(#arrow)"/>
+  <text x="300" y="405" class="rel-label">1 : N</text>
+
+  <!-- books — interactions -->
+  <path d="M 500,230 L 500,290 L 470,290 L 470,340" class="rel-line" marker-end="url(#arrow)"/>
+  <text x="505" y="288" class="rel-label">1 : N</text>
+
+  <!-- ==================== REVIEWS ==================== -->
+  <rect x="350" y="490" width="230" height="150" class="entity"/>
+  <rect x="350" y="490" width="230" height="24" class="header" rx="6"/>
+  <rect x="350" y="502" width="230" height="12" class="header"/>
+  <text x="465" y="507" text-anchor="middle" class="header-text">reviews</text>
+  <text x="360" y="530" class="pk">review_id  TEXT  PK</text>
+  <text x="360" y="546" class="fk">user_id  TEXT  FK → users</text>
+  <text x="360" y="562" class="fk">book_id  BIGINT  FK → books</text>
+  <text x="360" y="578">rating  SMALLINT  CHECK(0–5)</text>
+  <text x="360" y="594">review_text  TEXT</text>
+  <text x="360" y="610">review_date  TIMESTAMP</text>
+  <text x="360" y="626">n_votes  INT</text>
+
+  <!-- users — reviews -->
+  <path d="M 190,440 L 190,560 L 350,560" class="rel-line" marker-end="url(#arrow)"/>
+  <text x="195" y="505" class="rel-label">1 : N</text>
+
+  <!-- books — reviews -->
+  <path d="M 580,230 L 620,230 L 620,530 L 580,530" class="rel-line" marker-end="url(#arrow)"/>
+  <text x="625" y="400" class="rel-label">1 : N</text>
+
+  <!-- ==================== SIMILAR_BOOKS ==================== -->
+  <rect x="770" y="370" width="230" height="80" class="entity"/>
+  <rect x="770" y="370" width="230" height="24" class="header" rx="6"/>
+  <rect x="770" y="382" width="230" height="12" class="header"/>
+  <text x="885" y="387" text-anchor="middle" class="header-text">similar_books</text>
+  <text x="780" y="410" class="pk fk">book_id  BIGINT  PK FK</text>
+  <text x="780" y="426" class="pk fk">similar_book_id  BIGINT  PK FK</text>
+  <text x="780" y="442" style="font-size:10px;fill:#999">CHECK (book_id ≠ similar_book_id)</text>
+
+  <!-- books — similar_books (both FKs) -->
+  <path d="M 600,150 L 700,150 L 700,400 L 770,400" class="rel-line" marker-end="url(#arrow)"/>
+  <text x="705" y="300" class="rel-label">1 : N</text>
+  <path d="M 600,170 L 720,170 L 720,430 L 770,430" class="rel-line" marker-end="url(#arrow)"/>
+  <text x="725" y="330" class="rel-label">1 : N</text>
+
+  <!-- Legend -->
+  <rect x="850" y="530" width="220" height="100" fill="#fafafa" stroke="#ccc" rx="4"/>
+  <text x="860" y="550" font-weight="bold" font-size="11" fill="#555">Legend</text>
+  <text x="860" y="568" class="pk" font-size="11">Bold = Primary Key</text>
+  <text x="860" y="586" class="fk" font-size="11">Grey = Foreign Key</text>
+  <text x="860" y="604" font-size="11" fill="#555">→  = references (N:1 direction)</text>
+  <text x="860" y="622" font-size="11" fill="#555">PK FK = composite key + FK</text>
+</svg>
