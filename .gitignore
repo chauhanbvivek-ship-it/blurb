@@ -1,0 +1,11 @@
+# Raw data files (too large for GitHub — download with download_goodreads.py)
+data/*.json.gz
+data/*.json
+
+# Python
+__pycache__/
+*.pyc
+.env
+
+# OS
+.DS_Store
