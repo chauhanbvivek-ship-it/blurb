@@ -87,10 +87,10 @@ All 12 queries are in [`queries.sql`](queries.sql): 8 simple, 4 complex.
 
 | # | Name | Techniques | Before | After | Speedup |
 |---|---|---|---|---|---|
-| Q9 | Readers Also Loved | 3 CTEs, self-join on 7.3M-row interactions, NOT IN subquery | 62 s | 11 s | 5.6× |
-| Q10 | Hidden Gems | PERCENTILE_CONT, DISTINCT ON, CTE, 4-table join | >600 s | 2 s | >300× |
-| Q11 | Divisive Books | STDDEV, FILTER, RANK() window, HAVING | 10 s | 3 s | 3.3× |
-| Q12 | Tough Critics | NOT EXISTS correlated subquery, HAVING, multi-aggregate | 2.4 s | 1.4 s | 1.7× |
+| Q3 | Readers Also Loved | Self-join, COUNT(DISTINCT), GROUP BY, HAVING, MATERIALIZED CTE | 53.348 ms | 21.239 ms | 2.5× |
+| Q4 | Hidden Gems | PERCENTILE_CONT, DISTINCT ON, CTEs, multi-table joins | 28.924 s | 0.437 s | 66.2× |
+| Q5 | Top-Rated Authors | COUNT, AVG, LATERAL JOIN, MATERIALIZED CTE, aggregation optimization | 487.608 ms | 364.421 ms | 1.3× |
+| Q11 | Divisive Books | STDDEV, FILTER, RANK(), HAVING, index-only scan | 18.298 s | 1.030 s | 17.8× |
 
 **"Before" conditions:** all custom indexes dropped, `max_parallel_workers_per_gather = 0`, `enable_hashjoin = off`.
 
